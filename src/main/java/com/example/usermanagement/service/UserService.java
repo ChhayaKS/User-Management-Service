@@ -1,5 +1,7 @@
 package com.example.usermanagement.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.usermanagement.entity.User;
@@ -24,6 +26,17 @@ public class UserService {
 	{
 		return userRepository.findById(id).orElse(null);
 		
+	}
+	
+	public User updateUserById(User user, Long id)
+	{
+	    User existinguser=userRepository.findById(id).orElse(null);
+	    if(existinguser != null) {
+	    	existinguser.setName(user.getName());
+	    	existinguser.setEmail(user.getEmail());
+	    	existinguser.setPhone(user.getPhone());
+	    }
+		return userRepository.save(existinguser);
 	}
 
 }
