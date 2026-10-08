@@ -1,5 +1,6 @@
 package com.example.usermanagement.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +37,12 @@ public class UserController {
 	@PutMapping("/{id}")
 	public User updateUserById(@RequestBody User user , @PathVariable Long id)
 	{
-		return userService.updateUserById(user, id);
-		
+		return userService.updateUserById(user, id);	
 	}
 
+	@DeleteMapping("/{id}")
+	public void deleteUserById(@PathVariable Long id)
+	{
+		userService.deleteUserById(id);
+	}
 }

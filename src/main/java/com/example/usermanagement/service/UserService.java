@@ -1,7 +1,5 @@
 package com.example.usermanagement.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.example.usermanagement.entity.User;
@@ -37,6 +35,12 @@ public class UserService {
 	    	existinguser.setPhone(user.getPhone());
 	    }
 		return userRepository.save(existinguser);
+	}
+	
+	public void deleteUserById(Long id)
+	{
+		
+		userRepository.deleteById(id);	
 	}
 
 }
