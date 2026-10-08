@@ -11,11 +11,13 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class User {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotBlank
 	private String name;
-	@NotBlank @Email
+	@NotBlank
+	@Email
 	@Column(nullable = false, unique = true)
 	private String email;
 	private String phone;
@@ -24,7 +26,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(long id, String name, String email, String phone) {
+	public User(Long id, @NotBlank String name, @NotBlank @Email String email, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,11 +34,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,7 +65,5 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	
 
 }

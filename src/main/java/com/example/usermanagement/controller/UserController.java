@@ -1,0 +1,29 @@
+package com.example.usermanagement.controller;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.usermanagement.entity.User;
+import com.example.usermanagement.service.UserService;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+	
+	private final UserService userService;
+
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
+	
+	@PostMapping
+	public User createUser(@RequestBody  User user)
+	{
+		return userService.createUser(user);
+		
+	}
+	
+
+}
