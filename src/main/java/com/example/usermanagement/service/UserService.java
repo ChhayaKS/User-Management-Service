@@ -3,6 +3,7 @@ package com.example.usermanagement.service;
 import org.springframework.stereotype.Service;
 
 import com.example.usermanagement.entity.User;
+import com.example.usermanagement.exception.UserNotFoundException;
 import com.example.usermanagement.repository.UserRepository;
 
 @Service
@@ -22,13 +23,13 @@ public class UserService {
 	
 	public User getUserById(Long id)
 	{
-		return userRepository.findById(id).orElse(null);
+		return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
 		
 	}
 	
 	public User updateUserById(User user, Long id)
 	{
-	    User existinguser=userRepository.findById(id).orElse(null);
+	    User existinguser=userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
 	    if(existinguser != null) {
 	    	existinguser.setName(user.getName());
 	    	existinguser.setEmail(user.getEmail());
@@ -39,8 +40,9 @@ public class UserService {
 	
 	public void deleteUserById(Long id)
 	{
+		User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
 		
-		userRepository.deleteById(id);	
+		userRepository.delete(user);	
 	}
 
 }
