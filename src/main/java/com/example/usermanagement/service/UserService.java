@@ -3,6 +3,7 @@ package com.example.usermanagement.service;
 import org.springframework.stereotype.Service;
 
 import com.example.usermanagement.entity.User;
+import com.example.usermanagement.exception.DuplicateEmailException;
 import com.example.usermanagement.exception.UserNotFoundException;
 import com.example.usermanagement.repository.UserRepository;
 
@@ -17,6 +18,11 @@ public class UserService {
 
 	public User createUser(User user) {
 
+		if(userRepository.existsByEmail(user.getEmail()))
+		{
+			throw new DuplicateEmailException(user.getEmail());
+		}
+		
 		return userRepository.save(user);
 
 	}

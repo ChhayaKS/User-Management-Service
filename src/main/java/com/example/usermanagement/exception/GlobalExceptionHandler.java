@@ -7,13 +7,18 @@ import org.springframework.http.HttpStatus;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+
 	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String handleUserNotFound(UserNotFoundException ex)
-	{
+	public String handleUserNotFound(UserNotFoundException ex) {
 		return ex.getMessage();
-		
+
+	}
+
+	@ExceptionHandler(DuplicateEmailException.class)
+	@ResponseStatus(HttpStatus.CONFLICT)
+	public String handleDuplicateEmail(DuplicateEmailException ex) {
+		return ex.getMessage();
 	}
 
 }
