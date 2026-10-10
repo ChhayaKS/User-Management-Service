@@ -1,5 +1,7 @@
 package com.example.usermanagement.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +22,10 @@ import jakarta.validation.Valid;
 @RequestMapping("/users")
 public class UserController {
 	
-	private final UserRepository userRepository;
 	private final UserService userService;
 
 	public UserController(UserService userService, UserRepository userRepository) {
 		this.userService = userService;
-		this.userRepository = userRepository;
 	}
 	
 //	@PostMapping
@@ -49,6 +49,14 @@ public class UserController {
 	{
 		return userService.getUserById(id);
 	}
+	
+	@GetMapping
+	public List<User> getAllUsers()
+	{
+		return userService.getAllUsers();
+		
+	}
+	
 	
 //	@PutMapping("/{id}")
 //	public User updateUserById(@RequestBody User user , @PathVariable Long id)

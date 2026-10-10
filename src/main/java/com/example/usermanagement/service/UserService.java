@@ -1,5 +1,7 @@
 package com.example.usermanagement.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.usermanagement.entity.User;
@@ -18,37 +20,37 @@ public class UserService {
 
 	public User createUser(User user) {
 
-		if(userRepository.existsByEmail(user.getEmail()))
-		{
+		if (userRepository.existsByEmail(user.getEmail())) {
 			throw new DuplicateEmailException(user.getEmail());
 		}
-		
 		return userRepository.save(user);
-
 	}
+
+	public User getUserById(Long id) {
+		return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+	}
+
 	
-	public User getUserById(Long id)
+	public List<User> getAllUsers()
 	{
-		return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
+		return userRepository.findAll();
 		
 	}
 	
-	public User updateUserById(User user, Long id)
-	{
-	    User existinguser=userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
-	    if(existinguser != null) {
-	    	existinguser.setName(user.getName());
-	    	existinguser.setEmail(user.getEmail());
-	    	existinguser.setPhone(user.getPhone());
-	    }
+	public User updateUserById(User user, Long id) {
+		User existinguser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+		if (existinguser != null) {
+			existinguser.setName(user.getName());
+			existinguser.setEmail(user.getEmail());
+			existinguser.setPhone(user.getPhone());
+		}
 		return userRepository.save(existinguser);
 	}
-	
-	public void deleteUserById(Long id)
-	{
-		User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
-		
-		userRepository.delete(user);	
+
+	public void deleteUserById(Long id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+
+		userRepository.delete(user);
 	}
 
 }
